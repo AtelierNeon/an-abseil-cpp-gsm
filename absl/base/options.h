@@ -148,7 +148,9 @@
 // absl::string_view is a typedef of std::string_view, use the feature macro
 // ABSL_USES_STD_STRING_VIEW.
 
+#if !defined(ABSL_OPTION_USE_STD_STRING_VIEW)
 #define ABSL_OPTION_USE_STD_STRING_VIEW 2
+#endif
 
 // ABSL_OPTION_USE_STD_VARIANT
 //
