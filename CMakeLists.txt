@@ -86,6 +86,10 @@ list(APPEND CMAKE_MODULE_PATH
   ${CMAKE_CURRENT_LIST_DIR}/absl/copts
 )
 
+if(UNIX)
+  set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+endif()
+
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)
 include(AbseilDll)
