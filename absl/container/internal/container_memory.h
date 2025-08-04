@@ -17,6 +17,10 @@
 
 #include <cassert>
 #include <cstddef>
+//kene+
+/* https://bugzilla.redhat.com/show_bug.cgi?id=2336266 */
+#include <cstdint>
+//kene-
 #include <cstring>
 #include <memory>
 #include <new>
