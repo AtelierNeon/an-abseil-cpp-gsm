@@ -196,6 +196,8 @@ absl_cc_library(
     "internal/scheduling_mode.h"
   COPTS
     ${ABSL_DEFAULT_COPTS}
+  LINKOPTS
+    $<$<BOOL:${GCC}>:-pthread>
   DEPS
     absl::config
     absl::type_traits
