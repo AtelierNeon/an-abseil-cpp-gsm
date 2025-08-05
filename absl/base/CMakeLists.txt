@@ -197,7 +197,7 @@ absl_cc_library(
   COPTS
     ${ABSL_DEFAULT_COPTS}
   LINKOPTS
-    $<$<BOOL:${GCC}>:-pthread>
+    $<$<PLATFORM_ID:Linux>:-lpthread>
   DEPS
     absl::config
     absl::type_traits
