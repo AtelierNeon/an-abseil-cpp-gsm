@@ -790,8 +790,10 @@ URL: https://abseil.io/\n\
 Version: ${absl_VERSION}\n\
 Libs: -L\${libdir} $<$<NOT:$<BOOL:${ABSL_CC_LIB_IS_INTERFACE}>>:-l${_dll}> ${PC_LINKOPTS}\n\
 Cflags: -I\${includedir}${PC_CFLAGS}\n")
-  INSTALL(FILES "${CMAKE_BINARY_DIR}/lib/pkgconfig/${_dll}.pc"
-    DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
+  if(NOT ABSL_WITHOUT_INSTALL_FILES AND NOT ABSL_WITHOUT_INSTALL_ALL)
+    INSTALL(FILES "${CMAKE_BINARY_DIR}/lib/pkgconfig/${_dll}.pc"
+      DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
+  endif()
 
   target_compile_definitions(
     ${_dll}
@@ -812,11 +814,13 @@ Cflags: -I\${includedir}${PC_CFLAGS}\n")
     target_compile_features(${_dll} PUBLIC ${ABSL_INTERNAL_CXX_STD_FEATURE})
   endif()
 
-  install(TARGETS ${_dll} EXPORT ${PROJECT_NAME}Targets
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  )
+  if(NOT ABSL_WITHOUT_INSTALL_LIBRARIES AND NOT ABSL_WITHOUT_INSTALL_ALL)
+    install(TARGETS ${_dll} EXPORT ${PROJECT_NAME}Targets
+          RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+          LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+          ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    )
+  endif()
 
   add_library(absl::${_dll} ALIAS ${_dll})
 endfunction()

@@ -70,6 +70,17 @@ else()
   option(ABSL_ENABLE_INSTALL "Enable install rule" ON)
 endif()
 
+option(ABSL_WITH_SHARED_LIBRARIES "Build shared version of the absl libraries." OFF)
+option(ABSL_WITHOUT_INSTALL_ALL "Build absl without installing all artifacts." OFF)
+option(ABSL_WITHOUT_INSTALL_FILES "Build absl without installing files." OFF)
+option(ABSL_WITHOUT_INSTALL_HEADERS "Build absl without installing headers." OFF)
+option(ABSL_WITHOUT_INSTALL_LIBRARIES "Build absl without installing libraries." OFF)
+if(ABSL_WITH_SHARED_LIBRARIES)
+  set(BUILD_SHARED_LIBS ON)
+else()
+  set(BUILD_SHARED_LIBS OFF)
+endif()
+
 option(ABSL_PROPAGATE_CXX_STD
   "Use CMake C++ standard meta features (e.g. cxx_std_14) that propagate to targets that link to Abseil"
   OFF)  # TODO: Default to ON for CMake 3.8 and greater.
