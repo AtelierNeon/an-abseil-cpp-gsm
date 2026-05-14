@@ -46,6 +46,7 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ON)
 set(CMAKE_BUILD_RPATH_USE_ORIGIN ON)
 
 option(ABSL_WITH_SHARED_LIBRARIES "Build shared version of the absl libraries." OFF)
+option(ABSL_WITHOUT_CONFIGURE_VCRT "Build absl without configuring MSVC runtime." OFF)
 option(ABSL_WITHOUT_INSTALL_ALL "Build absl without installing all artifacts." OFF)
 option(ABSL_WITHOUT_INSTALL_FILES "Build absl without installing files." OFF)
 option(ABSL_WITHOUT_INSTALL_HEADERS "Build absl without installing headers." OFF)
@@ -72,10 +73,12 @@ list(APPEND CMAKE_MODULE_PATH
 option(ABSL_MSVC_STATIC_RUNTIME
   "Link static runtime libraries"
   OFF)
-if(ABSL_MSVC_STATIC_RUNTIME)
-  set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-else()
-  set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+if (NOT ABSL_WITHOUT_CONFIGURE_VCRT)
+  if(ABSL_MSVC_STATIC_RUNTIME)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+  else()
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+  endif()
 endif()
 
 if(UNIX)
