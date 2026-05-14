@@ -68,18 +68,17 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
+    absl::bits
     absl::cord_test_helpers
+    absl::flat_hash_set
     absl::hash
     absl::hash_testing
-    absl::core_headers
-    absl::btree
-    absl::flat_hash_map
-    absl::flat_hash_set
-    absl::node_hash_map
-    absl::node_hash_set
-    absl::spy_hash_state
+    absl::memory
     absl::meta
-    absl::int128
+    absl::optional
+    absl::spy_hash_state
+    absl::string_view
+    absl::variant
     GTest::gmock_main
 )
 
@@ -87,7 +86,7 @@ absl_cc_test(
   NAME
     hash_instantiated_test
   SRCS
-    "hash_test.cc"
+    "hash_instantiated_test.cc"
     "internal/hash_test.h"
   COPTS
     ${ABSL_TEST_COPTS}
@@ -100,7 +99,7 @@ absl_cc_test(
     absl::flat_hash_set
     absl::node_hash_map
     absl::node_hash_set
-    GTest::gtest_main
+    GTest::gmock_main
 )
 
 # Internal-only target, do not depend on directly.
