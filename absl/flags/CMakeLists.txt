@@ -45,6 +45,7 @@ absl_cc_library(
   DEPS
     absl::config
     absl::core_headers
+    absl::no_destructor
     absl::flags_path_util
     absl::strings
     absl::synchronization
@@ -68,6 +69,7 @@ absl_cc_library(
     absl::flags_path_util
     absl::flags_program_name
     absl::core_headers
+    absl::no_destructor
     absl::strings
     absl::synchronization
 )
@@ -169,6 +171,7 @@ absl_cc_library(
     absl::strings
     absl::synchronization
     absl::flat_hash_map
+    absl::no_destructor
 )
 
 # Internal-only target, do not depend on directly.
@@ -191,6 +194,7 @@ absl_cc_library(
     absl::flags_commandlineflag_internal
     absl::flags_config
     absl::flags_marshalling
+    absl::no_destructor
     absl::synchronization
     absl::meta
     absl::utility
@@ -200,12 +204,9 @@ absl_cc_library(
 absl_cc_library(
   NAME
     flags
-  SRCS
-    "flag.cc"
   HDRS
     "declare.h"
     "flag.h"
-    "internal/flag_msvc.inc"
   COPTS
     ${ABSL_DEFAULT_COPTS}
   LINKOPTS
@@ -216,7 +217,6 @@ absl_cc_library(
     absl::flags_config
     absl::flags_internal
     absl::flags_reflection
-    absl::base
     absl::core_headers
     absl::strings
 )
@@ -243,7 +243,6 @@ absl_cc_library(
     absl::flags_private_handle_accessor
     absl::flags_program_name
     absl::flags_reflection
-    absl::flat_hash_map
     absl::strings
     absl::synchronization
 )
@@ -263,6 +262,7 @@ absl_cc_library(
     absl::config
     absl::core_headers
     absl::flags_usage_internal
+    absl::no_destructor
     absl::raw_logging_internal
     absl::strings
     absl::synchronization
@@ -293,6 +293,7 @@ absl_cc_library(
     absl::flags_program_name
     absl::flags_reflection
     absl::flags_usage
+    absl::no_destructor
     absl::strings
     absl::synchronization
 )
@@ -310,7 +311,6 @@ absl_cc_test(
   DEPS
     absl::flags
     absl::flags_commandlineflag
-    absl::flags_commandlineflag_internal
     absl::flags_config
     absl::flags_private_handle_accessor
     absl::flags_reflection
@@ -345,8 +345,11 @@ absl_cc_test(
     absl::flags_config
     absl::flags_internal
     absl::flags_marshalling
+    absl::flags_parse
     absl::flags_reflection
     absl::int128
+    absl::optional
+    absl::raw_logging_internal
     absl::strings
     absl::time
     GTest::gtest_main
@@ -373,6 +376,7 @@ absl_cc_test(
     ${ABSL_TEST_COPTS}
   DEPS
     absl::flags
+    absl::flags_config
     absl::flags_parse
     absl::flags_reflection
     absl::flags_usage_internal
@@ -416,8 +420,8 @@ absl_cc_test(
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::flags_commandlineflag_internal
     absl::flags
+    absl::flags_config
     absl::flags_reflection
     absl::flags_usage
     absl::memory
